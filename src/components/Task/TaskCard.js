@@ -1,37 +1,43 @@
 import React, { useState } from "react";
 import Checkbox from "./Checkbox";
 
-const formatDate = (task) => {
-    // Receives a Task object and returns formatted date
+// const formatDate = (task) => {
+//     // Receives a Task object and returns formatted date
 
-    // Converting HTML date input to human-friendly month
-    const months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-    ];
-    const monthId = task.due_date.slice(5, 7);
-    const formattedMonth = months[monthId - 1];
+//     // Converting HTML date input to human-friendly month
+//     const months = [
+//         "Jan",
+//         "Feb",
+//         "Mar",
+//         "Apr",
+//         "May",
+//         "Jun",
+//         "Jul",
+//         "Aug",
+//         "Sep",
+//         "Oct",
+//         "Nov",
+//         "Dec",
+//     ];
+//     const monthId = task.due_date.slice(5, 7);
+//     const formattedMonth = months[monthId - 1];
 
-    const formattedDate = `${formattedMonth} ${task.due_date.slice(
-        8,
-        10
-    )}, ${task.due_date.slice(0, 4)}`;
+//     const formattedDate = `${formattedMonth} ${task.due_date.slice(
+//         8,
+//         10
+//     )}, ${task.due_date.slice(0, 4)}`;
 
-    return formattedDate;
-};
+//     return formattedDate;
+// };
+
+// const formatDate = (taskDate) => {
+//     let dateArr = taskDate.split("T");
+//     return dateArr[0];
+// };
 
 const Task = ({ task }) => {
-    const formattedDueDate = formatDate(task);
+    // const formattedDueDate = formatDate(task);
+    const formattedDueDate = "1 Jan 2023"; // TODO simplification, get due date after updating model backend
 
     const [finished, setFinished] = useState(task["is_finished"]);
 
@@ -58,8 +64,13 @@ const Task = ({ task }) => {
                             {task.description}
                         </div>
 
+                        <div className="text-sm text-gray-400">
+                            {formattedDueDate}
+                        </div>
+
                         {/* Create Date */}
-                        {new Date().getTime() >= Date.parse(task.due_date) ? (
+                        {/* TODO Uncomment when Task model have updated to include due_date */}
+                        {/* {new Date().getTime() >= Date.parse(task.due_date) ? (
                             // If task is due, then highlight font as red
                             <div className="text-sm text-red-400">
                                 {formattedDueDate}
@@ -69,7 +80,7 @@ const Task = ({ task }) => {
                             <div className="text-sm text-gray-400">
                                 {formattedDueDate}
                             </div>
-                        )}
+                        )} */}
                     </div>
 
                     {/* Delete Task and Category Section */}

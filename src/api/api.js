@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_URL = "http:localhost:8000/api";
+const API_URL = "http://localhost:8000/api";
+const uname = "user01";
+const pass = "jerealva";
 
 const getAllTasks = async () => {
     const response = await axios.get(`${API_URL}/tasks/`);
@@ -13,11 +15,18 @@ const getTask = async (id) => {
     const response = await axios.get(`${API_URL}/tasks/${id}`);
     console.log(response.data);
 
+    // hi
+    
     return response.data;
 };
 
 const postTask = async (data) => {
-    const response = await axios.post(`${API_URL}/tasks/`, data);
+    const response = await axios.post(`${API_URL}/tasks/`, data, {
+        auth: {
+            username: uname,
+            password: pass,
+        },
+    });
     console.log(response.data);
 
     return response.data;

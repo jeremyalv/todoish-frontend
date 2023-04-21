@@ -21,7 +21,7 @@ export const tasks = [
     },
     {
         id: 3,
-        title: "Drop food on Abby's house",
+        title: "Drop food on Andy's house",
         description: "Lorem ipsum dolor sit amet",
         is_finished: true,
         created_at: "2022-11-23",

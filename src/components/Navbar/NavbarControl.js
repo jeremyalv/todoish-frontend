@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import MenuDrawer from "./MenuDrawer";
 import CreateTask from "./CreateTask";
 import SearchTask from "./SearchTask";
-import CreateTaskModal from "./CreateTaskModalOld";
+import CreateTaskModal from "./CreateTaskModal";
 
 const NavbarControl = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
-    const [openCreateTask, setOpenCreateTask] = useState(false);
+    const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false);
 
     const handleOpenedDrawer = () => {
         setOpenDrawer(!openDrawer);
     };
 
-    const handleOpenedCreateTask = () => {
-        setOpenCreateTask(!openCreateTask);
+    const handleOpenCreateTaskModal = () => {
+        setOpenCreateTaskModal(!openCreateTaskModal);
     };
 
     return (
@@ -32,11 +32,12 @@ const NavbarControl = () => {
                 </div>
                 <div>
                     <CreateTask
-                        opened={openCreateTask}
-                        handleCreateTask={handleOpenedCreateTask}
-                        content={null}
+                        opened={openCreateTaskModal}
+                        handleOpenCreateTaskModal={handleOpenCreateTaskModal}
                     >
-                        <CreateTaskModal />
+                        <CreateTaskModal
+                            handleOpen={handleOpenCreateTaskModal}
+                        />
                     </CreateTask>
                 </div>
                 <div className="">

@@ -1,64 +1,120 @@
-// import React, { useState } from 'react';
+import React, { useState } from "react";
+import * as api from "../../api/api.js";
 
-// const CreateTaskModal = () => {
-//     return (
-//         <>
-//           <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-//             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-//             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-//                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-//                 <h3 className="text-3xl font=semibold">General Info</h3>
-//                 <button
-//                     className="bg-transparent border-0 text-black float-right"
-//                     onClick={onclick}
-//                 >
-//                     <span className="text-black opacity-7 h-6 w-6 text-xl block bg-gray-400 py-0 rounded-full">
-//                     x
-//                     </span>
-//                 </button>
-//                 </div>
-//                 <div className="relative p-6 flex-auto">
-//                 <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
-//                     <label className="block text-black text-sm font-bold mb-1">
-//                     First Name
-//                     </label>
-//                     <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-//                     <label className="block text-black text-sm font-bold mb-1">
-//                     Last Name
-//                     </label>
-//                     <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-//                     <label className="block text-black text-sm font-bold mb-1">
-//                     Address
-//                     </label>
-//                     <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-//                     <label className="block text-black text-sm font-bold mb-1">
-//                     City
-//                     </label>
-//                     <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-//                 </form>
-//                 </div>
-//                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-//                 <button
-//                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-//                     type="button"
-//                     onClick={onClick}
-//                 >
-//                     Close
-//                 </button>
-//                 <button
-//                     className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-//                     type="button"
-//                     onClick={onClick}
-//                 >
-//                     Submit
-//                 </button>
-//                 </div>
-//             </div>
-//             </div>
-//         </div>
-//         </>
-//     );
-// };
+const CreateTaskModal = ({ handleOpen }) => {
+    const [taskName, setTaskName] = useState("");
+    const [dueDate, setDueDate] = useState(new Date());
+    const [description, setDescription] = useState("");
 
+    const handleCreateTask = async (e) => {
+        e.preventDefault();
 
-// export default CreateTaskModal;
+        const data = { taskName, dueDate, description };
+        try {
+            const response = await api.postTask(data);
+        } catch (error) {
+            console.log(error);
+        }
+
+        // Toggle (close) modal
+        handleOpen();
+    };
+
+    return (
+        <>
+            <div className="flex justify-center items-center fixed inset-0">
+                {/* Overlay */}
+                <div
+                    className="w-full h-full bg-black opacity-25"
+                    onClick={handleOpen}
+                ></div>
+
+                {/* Modal */}
+                <div className="flex flex-col absolute z-30 w-5/6 h-84 px-2 py-1.5 bg-white rounded-lg">
+                    {/* Modal Header */}
+                    <div className="flex flex-row justify-between mr-3 ml-3 mt-4">
+                        {/* Modal Title */}
+                        <div className="text-xl font-semibold">
+                            Add a new task
+                        </div>
+
+                        {/* X-mark */}
+                        <svg
+                            className="font-bold w-6 h-6 px-.5 py-.5 active:text-red-500 active:bg-red-200 active:rounded-lg"
+                            onClick={handleOpen}
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </div>
+
+                    {/* Modal Body */}
+                    <div className="mr-3 ml-3 mt-4 mb-2">
+                        <form method="POST" onSubmit={handleCreateTask}>
+                            <div className="mt-2 mb-6">
+                                {/* Task Data */}
+                                <label className="flex flex-col mb-3">
+                                    Task Name
+                                    <input
+                                        type="text"
+                                        name="taskName"
+                                        required
+                                        className="border-2 px-1.5 py-1"
+                                        value={taskName}
+                                        onChange={(e) =>
+                                            setTaskName(e.target.value)
+                                        }
+                                    ></input>
+                                </label>
+
+                                {/* Due date -> returns YYYY-MM-DD */}
+                                <label className="flex flex-col mb-3">
+                                    Due Date
+                                    <input
+                                        type="date"
+                                        name="taskDueDate"
+                                        required
+                                        className="border-2 px-1.5 py-1"
+                                        value={dueDate}
+                                        onChange={(e) =>
+                                            setDueDate(e.target.value)
+                                        }
+                                    ></input>
+                                </label>
+
+                                <label className="flex flex-col mb-3">
+                                    Description
+                                    <input
+                                        className="border-2 px-1.5 py-1"
+                                        type="text"
+                                        name="taskDescription"
+                                        value={description}
+                                        onChange={(e) =>
+                                            setDescription(e.target.value)
+                                        }
+                                    ></input>
+                                </label>
+                            </div>
+
+                            <div className="flex flex-row justify-center mt-4 mb-3">
+                                <button className="active:ring bg-orange-500 text-white font-semibold rounded-md px-6 py-2">
+                                    Save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};
+
+export default CreateTaskModal;
