@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api";
+// const API_URL = "http://localhost:8000/api";
+const API_URL = "https://jeremyalv.pythonanywhere.com/api";
 const uname = "user01";
 const pass = "jerealva";
 
@@ -15,18 +16,26 @@ const getTask = async (id) => {
     const response = await axios.get(`${API_URL}/tasks/${id}`);
     console.log(response.data);
 
-    // hi
-    
     return response.data;
 };
 
 const postTask = async (data) => {
-    const response = await axios.post(`${API_URL}/tasks/`, data, {
-        auth: {
-            username: uname,
-            password: pass,
+    const response = await axios.post(
+        `${API_URL}/tasks/`,
+        {
+            title: data.taskName,
+            description: data.description,
+            dueDate: data.dueDate,
+            isFinished: false,
+            category: data.category,
         },
-    });
+        {
+            auth: {
+                username: uname,
+                password: pass,
+            },
+        }
+    );
     console.log(response.data);
 
     return response.data;

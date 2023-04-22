@@ -5,11 +5,13 @@ const CreateTaskModal = ({ handleOpen }) => {
     const [taskName, setTaskName] = useState("");
     const [dueDate, setDueDate] = useState(new Date());
     const [description, setDescription] = useState("");
+    const [category, setCategory] = useState("");
 
     const handleCreateTask = async (e) => {
         e.preventDefault();
 
-        const data = { taskName, dueDate, description };
+        const data = { taskName, dueDate, description, category };
+
         try {
             const response = await api.postTask(data);
         } catch (error) {
@@ -60,7 +62,7 @@ const CreateTaskModal = ({ handleOpen }) => {
                     <div className="mr-3 ml-3 mt-4 mb-2">
                         <form method="POST" onSubmit={handleCreateTask}>
                             <div className="mt-2 mb-6">
-                                {/* Task Data */}
+                                {/* Task name */}
                                 <label className="flex flex-col mb-3">
                                     Task Name
                                     <input
@@ -90,6 +92,21 @@ const CreateTaskModal = ({ handleOpen }) => {
                                     ></input>
                                 </label>
 
+                                {/* Task category */}
+                                <label className="flex flex-col mb-3">
+                                    Category
+                                    <input
+                                        className="border-2 px-1.5 py-1"
+                                        type="text"
+                                        name="taskCategory"
+                                        value={category}
+                                        onChange={(e) =>
+                                            setCategory(e.target.value)
+                                        }
+                                    ></input>
+                                </label>
+
+                                {/* Task description */}
                                 <label className="flex flex-col mb-3">
                                     Description
                                     <input

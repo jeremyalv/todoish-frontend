@@ -17,7 +17,7 @@ const TaskFeed = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center overflow-y-auto">
             {tasks.map((task, key) => (
                 <TaskCard key={key} task={task} />
             ))}

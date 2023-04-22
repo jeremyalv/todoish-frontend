@@ -19,7 +19,7 @@ const NavbarControl = () => {
     return (
         <div
             id="navbarControl"
-            className=" w-screen fixed 
+            className="w-screen fixed 
             left-0 right-0 top-auto bottom-0 md:top-0 md:bottom-auto
             bg-orange-500 py-2"
         >
