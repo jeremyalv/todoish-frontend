@@ -4,7 +4,7 @@ import CreateTask from "./CreateTask";
 import SearchTask from "./SearchTask";
 import CreateTaskModal from "./CreateTaskModal";
 
-const NavbarControl = () => {
+const Menu = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
     const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false);
 
@@ -18,8 +18,8 @@ const NavbarControl = () => {
 
     return (
         <div
-            id="navbarControl"
-            className="w-screen fixed 
+            id="menu"
+            className="w-screen max-h-18 fixed
             left-0 right-0 top-auto bottom-0 md:top-0 md:bottom-auto
             bg-orange-500 py-2"
         >
@@ -48,4 +48,4 @@ const NavbarControl = () => {
     );
 };
 
-export default NavbarControl;
+export default Menu;

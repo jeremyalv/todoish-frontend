@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar/Navbar";
 import TaskFeed from "./Task/TaskFeed";
-import NavbarControl from "./Navbar/NavbarControl";
+import Menu from "./Navbar/Menu";
 import DesktopWarning from "./Helper/DesktopWarning";
 
 const App = () => {
@@ -14,12 +14,12 @@ const App = () => {
         } else {
             setShowDesktopWarning(false);
         }
-    });
+    }, []);
 
     // If viewport is desktop, then show warning to user
     if (showDesktopWarning) {
         return (
-            <div className="px-4 py-2 h-screen w-screen">
+            <div className="h-screen w-screen">
                 <DesktopWarning />
             </div>
         );
@@ -27,13 +27,11 @@ const App = () => {
 
     // Else, return the Todoish app
     return (
-        <div className="max-w-md px-4 py-2 h-screen w-screen">
-            <>
-                <Navbar />
-                <TaskFeed />
-                <NavbarControl />
-            </>
-        </div>
+        <>
+            <Navbar />
+            <TaskFeed />
+            <Menu />
+        </>
     );
 };
 
