@@ -1,46 +1,48 @@
 import React, { useState } from "react";
 import Checkbox from "./Checkbox";
 
-// const formatDate = (task) => {
-//     // Receives a Task object and returns formatted date
+const formatDate = (task) => {
+    // Receives a Task object and returns formatted date
+    if (task.due_date === null) return;
 
-//     // Converting HTML date input to human-friendly month
-//     const months = [
-//         "Jan",
-//         "Feb",
-//         "Mar",
-//         "Apr",
-//         "May",
-//         "Jun",
-//         "Jul",
-//         "Aug",
-//         "Sep",
-//         "Oct",
-//         "Nov",
-//         "Dec",
-//     ];
-//     const monthId = task.due_date.slice(5, 7);
-//     const formattedMonth = months[monthId - 1];
+    const date = task.due_date.split("T")[0];
 
-//     const formattedDate = `${formattedMonth} ${task.due_date.slice(
-//         8,
-//         10
-//     )}, ${task.due_date.slice(0, 4)}`;
+    // Converting HTML date input to human-friendly month
+    const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
+    const monthId = date.slice(5, 7);
+    const formattedMonth = months[monthId - 1];
 
-//     return formattedDate;
-// };
+    const formattedDate = `${formattedMonth} ${date.slice(8, 10)}, ${date.slice(
+        0,
+        4
+    )}`;
+
+    return formattedDate;
+};
 
 // const formatDate = (taskDate) => {
+// Return 2023-04-20
 //     let dateArr = taskDate.split("T");
 //     return dateArr[0];
 // };
 
 const Task = ({ task }) => {
-    // const formattedDueDate = formatDate(task);
-    const formattedDueDate = "1 Jan 2023"; // TODO simplification, get due date after updating model backend
-
     const [finished, setFinished] = useState(task["is_finished"]);
 
+    // TODO Sync actions with backend database
     const handleFinished = () => {
         setFinished(!finished);
     };
@@ -65,7 +67,7 @@ const Task = ({ task }) => {
                         </div>
 
                         <div className="text-sm text-gray-400">
-                            {formattedDueDate}
+                            {task.due_date === null ? "" : formatDate(task)}
                         </div>
 
                         {/* Create Date */}

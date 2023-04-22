@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import TaskCard from "./TaskCard";
-// import { tasks as dummy } from "../../data/tasks.js";
 import { getAllTasks } from "../../api/api.js";
 
 const TaskFeed = () => {
@@ -9,9 +8,9 @@ const TaskFeed = () => {
     useEffect(() => {
         const fetchTasks = async () => {
             const data = await getAllTasks();
-            const result = await data.results;
+            const allTasks = await data.results;
 
-            setTasks(result);
+            setTasks(allTasks);
         };
 
         fetchTasks();
