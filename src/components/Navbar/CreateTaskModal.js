@@ -8,12 +8,6 @@ const CreateTaskModal = ({ handleOpen }) => {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
 
-    // Post to API effect
-    useEffect(() => {
-        // Set submit back to false
-        setSubmit(false);
-    }, [submit]);
-
     // Handler for form submission
     const handleCreateTask = async (e) => {
         e.preventDefault();

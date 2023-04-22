@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
 import TaskCard from "./TaskCard";
-import { getAllTasks } from "../../api/api.js";
+import * as api from "../../api/api.js";
+
+const fetchTasks = async (setTasks) => {
+    const data = await api.getAllTasks();
+    const allTasks = await data.results;
+
+    setTasks(allTasks);
+};
+
+const deleteTask = async (id) => {
+    // TODO add id field to Task... model
+    // then store to TaskCard's state
+};
 
 const TaskFeed = () => {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        const fetchTasks = async () => {
-            const data = await getAllTasks();
-            const allTasks = await data.results;
-
-            setTasks(allTasks);
-        };
-
-        fetchTasks();
+        fetchTasks(setTasks);
     }, []);
 
     return (

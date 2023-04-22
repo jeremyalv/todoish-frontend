@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import CreateTaskModal from "./CreateTaskModal";
+import { getAllTasks } from "../../api/api.js";
 
 const CreateTask = ({
     opened,
     handleOpenCreateTaskModal: openModal,
     children: modal,
 }) => {
-
     return (
         <>
             {/* Create Task Button */}
