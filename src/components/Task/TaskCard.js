@@ -1,46 +1,12 @@
 import React, { useState } from "react";
 import Checkbox from "./Checkbox";
-
-const formatDate = (task) => {
-    // Receives a Task object and returns formatted date
-    if (task.due_date === null) return;
-
-    const date = task.due_date.split("T")[0];
-
-    // Converting HTML date input to human-friendly month
-    const months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-    ];
-    const monthId = date.slice(5, 7);
-    const formattedMonth = months[monthId - 1];
-
-    const formattedDate = `${formattedMonth} ${date.slice(8, 10)}, ${date.slice(
-        0,
-        4
-    )}`;
-
-    return formattedDate;
-};
-
-// const formatDate = (taskDate) => {
-// Return 2023-04-20
-//     let dateArr = taskDate.split("T");
-//     return dateArr[0];
-// };
+import { formatDate } from "../Helper/FormatDate";
+import { GMTtoWIB } from "../Helper/GMTtoWIB";
 
 const Task = ({ task }) => {
     const [finished, setFinished] = useState(task["is_finished"]);
+    const taskDueDate = Date.parse(task.due_date);
+    const formattedDueDate = formatDate(task);
 
     // TODO Sync actions with backend database
     const handleFinished = () => {
@@ -62,27 +28,26 @@ const Task = ({ task }) => {
                         {/* Title */}
                         <div className="text-sm md:text-lg">{task.title}</div>
 
+                        {/* Description */}
                         <div className="text-xs md:text-sm text-gray-500">
                             {task.description}
                         </div>
 
-                        <div className="text-sm text-gray-400">
-                            {task.due_date === null ? "" : formatDate(task)}
-                        </div>
-
-                        {/* Create Date */}
-                        {/* TODO Uncomment when Task model have updated to include due_date */}
-                        {/* {new Date().getTime() >= Date.parse(task.due_date) ? (
+                        {/* Due Date */}
+                        {/* Assumption: TaskDueDate is in WIB */}
+                        {task.due_date === null ? (
+                            ""
+                        ) : GMTtoWIB(new Date().getTime()) >= taskDueDate ? (
                             // If task is due, then highlight font as red
-                            <div className="text-sm text-red-400">
+                            <div className="text-xs pt-1 pb-0.5 text-red-400">
                                 {formattedDueDate}
                             </div>
                         ) : (
                             // Else, highlight font as gray
-                            <div className="text-sm text-gray-400">
+                            <div className="text-xs pt-1 pb-0.5 text-gray-400">
                                 {formattedDueDate}
                             </div>
-                        )} */}
+                        )}
                     </div>
 
                     {/* Delete Task and Category Section */}

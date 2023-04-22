@@ -1,25 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as api from "../../api/api.js";
 
 const CreateTaskModal = ({ handleOpen }) => {
+    const [submit, setSubmit] = useState(false);
     const [taskName, setTaskName] = useState("");
     const [dueDate, setDueDate] = useState(new Date());
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
 
+    // Post to API effect
+    useEffect(() => {
+        // Set submit back to false
+        setSubmit(false);
+    }, [submit]);
+
+    // Handler for form submission
     const handleCreateTask = async (e) => {
         e.preventDefault();
 
         const data = { taskName, dueDate, description, category };
 
         try {
-            const response = await api.postTask(data);
+            await api.postTask(data);
         } catch (error) {
             console.log(error);
         }
 
         // Toggle (close) modal
         handleOpen();
+
+        // Set submit value to true
+        setSubmit(true);
     };
 
     return (
@@ -99,6 +110,7 @@ const CreateTaskModal = ({ handleOpen }) => {
                                         className="border-2 px-1.5 py-1"
                                         type="text"
                                         name="taskCategory"
+                                        defaultValue=""
                                         value={category}
                                         onChange={(e) =>
                                             setCategory(e.target.value)
@@ -114,6 +126,7 @@ const CreateTaskModal = ({ handleOpen }) => {
                                         type="text"
                                         name="taskDescription"
                                         value={description}
+                                        defaultValue=""
                                         onChange={(e) =>
                                             setDescription(e.target.value)
                                         }

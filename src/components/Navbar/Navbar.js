@@ -9,7 +9,7 @@ const user = {
 
 const Navbar = () => {
     return (
-        <div className="flex py-2 px-2 fixed bg-white w-full">
+        <div className="flex py-2 px-4 fixed bg-white w-full">
             <Header />
             <div className="ml-auto">
                 <Profile user={user} />
