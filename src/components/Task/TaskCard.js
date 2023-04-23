@@ -3,12 +3,18 @@ import Checkbox from "./Checkbox";
 import { formatDate } from "../Helper/FormatDate";
 import { GMTtoWIB } from "../Helper/GMTtoWIB";
 import DeleteTask from "./DeleteTask";
+import UpdateTaskModal from "../Navbar/UpdateTaskModal";
 
-const Task = ({ task }) => {
-    const []
+const TaskCard = ({ task, handleUpdate, handleDelete }) => {
+    const [opened, setOpened] = useState(false);
     const [finished, setFinished] = useState(task["is_finished"]);
     const taskDueDate = Date.parse(task.due_date);
     const formattedDueDate = formatDate(task);
+
+    const handleOpened = () => {
+        console.log("opened: " + opened);
+        setOpened(!opened);
+    };
 
     // TODO Sync actions with backend database
     const handleFinished = () => {
@@ -17,8 +23,14 @@ const Task = ({ task }) => {
 
     return (
         <div className="flex flex-col items-center w-full h-20">
+            {/* Border */}
             <div className="w-full border-b"></div>
-            <div className="flex flex-row items-center w-full h-20">
+
+            {/* Main Card Section */}
+            <div
+                onClick={handleOpened}
+                className="flex flex-row items-center w-full h-20"
+            >
                 {/* Checkbox component */}
                 <div className="self-start mt-4">
                     <Checkbox onChange={handleFinished} checked={finished} />
@@ -54,18 +66,25 @@ const Task = ({ task }) => {
 
                     {/* Delete Task and Category Section */}
                     <div className="flex flex-col ml-auto my-auto">
-                        <DeleteTask />
+                        <DeleteTask task={task} handleDelete={handleDelete} />
 
                         {/* Category */}
-                        {/* Hide this for now as we'd want to focus on delete feature / CRUD */}
-                        {/* <div className='text-sm text-gray-400 mt-auto'>
-                        {task.category}
-                    </div> */}
+                        {/* <div className="text-sm text-gray-400 mt-auto">
+                            {task.category}
+                        </div> */}
                     </div>
+                    {/* 
+                    {opened ? (
+                        <UpdateTaskModal
+                            task={task}
+                            handleUpdate={handleUpdate}
+                            handleOpen={handleOpened}
+                        />
+                    ) : null} */}
                 </div>
             </div>
         </div>
     );
 };
 
-export default Task;
+export default TaskCard;

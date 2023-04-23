@@ -1,9 +1,13 @@
 import React from "react";
 
-const DeleteTask = () => {
+const DeleteTask = ({ task, handleDelete: deleteTask }) => {
+    console.log("AT DELETE TASK");
     return (
-        // Delete Task
-        <div className="text-sm text-gray-400 ml-auto pt-3 pb-2 active:text-red-500">
+        <div
+            // Delete Task
+            onClick={() => deleteTask(task)}
+            className="text-sm text-gray-400 ml-auto pt-3 pb-2 active:text-red-500"
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

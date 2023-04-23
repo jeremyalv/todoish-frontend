@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import TaskCard from "./TaskCard";
 import * as api from "../../api/api.js";
 
+import { GetIdFromURL } from "../Helper/GetIdFromURL";
+
 const fetchTasks = async (setTasks) => {
     const data = await api.getAllTasks();
     const allTasks = await data.results;
@@ -9,9 +11,22 @@ const fetchTasks = async (setTasks) => {
     setTasks(allTasks);
 };
 
-const deleteTask = async (id) => {
-    // TODO add id field to Task... model
-    // then store to TaskCard's state
+const handleDelete = async (task) => {
+    // Retrieve Id from hyperlinked URL field
+    const id = GetIdFromURL(task);
+
+    // Then store to TaskCard's state
+    await api.deleteTask(id);
+
+    // TBA fetch tasks
+};
+
+const handleUpdate = async (task, newData) => {
+    // Retrieve Id from hyperlinked URL field
+    const id = GetIdFromURL(task);
+
+    // Then send PUT request to server
+    await api.putTask(id, newData);
 };
 
 const TaskFeed = () => {
@@ -21,10 +36,17 @@ const TaskFeed = () => {
         fetchTasks(setTasks);
     }, []);
 
+    console.log("AT TASK FEED");
+
     return (
         <div className="flex flex-col items-center overflow-y-auto px-4 pt-12 pb-20">
             {tasks.map((task, key) => (
-                <TaskCard key={key} task={task} />
+                <TaskCard
+                    key={key}
+                    task={task}
+                    handleUpdate={handleUpdate}
+                    handleDelete={handleDelete}
+                />
             ))}
         </div>
     );

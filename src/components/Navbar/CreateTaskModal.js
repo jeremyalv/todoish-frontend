@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as api from "../../api/api.js";
 
 const CreateTaskModal = ({ handleOpen }) => {
@@ -32,7 +32,7 @@ const CreateTaskModal = ({ handleOpen }) => {
             <div className="flex justify-center items-center fixed inset-0">
                 {/* Overlay */}
                 <div
-                    className="w-full h-full bg-black opacity-25"
+                    className="z-10 w-full h-full bg-black opacity-25"
                     onClick={handleOpen}
                 ></div>
 
@@ -69,7 +69,7 @@ const CreateTaskModal = ({ handleOpen }) => {
                             <div className="mt-2 mb-6">
                                 {/* Task name */}
                                 <label className="flex flex-col mb-3">
-                                    Task Name
+                                    Title
                                     <input
                                         type="text"
                                         name="taskName"
@@ -129,7 +129,10 @@ const CreateTaskModal = ({ handleOpen }) => {
                             </div>
 
                             <div className="flex flex-row justify-center mt-4 mb-3">
-                                <button className="active:ring bg-orange-500 text-white font-semibold rounded-md px-6 py-2">
+                                <button
+                                    type="submit"
+                                    className="active:ring bg-orange-500 text-white font-semibold rounded-md px-6 py-2"
+                                >
                                     Save
                                 </button>
                             </div>

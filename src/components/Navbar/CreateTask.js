@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { getAllTasks } from "../../api/api.js";
 
 const CreateTask = ({
     opened,

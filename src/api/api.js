@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:8000/api";
 const API_URL = "https://jeremyalv.pythonanywhere.com/api";
 const uname = "user01";
 const pass = "jerealva";
@@ -13,7 +12,7 @@ const getAllTasks = async () => {
 };
 
 const getTask = async (id) => {
-    const response = await axios.get(`${API_URL}/tasks/${id}`);
+    const response = await axios.get(`${API_URL}/tasks/${id}/`);
     console.log(response.data);
 
     return response.data;
@@ -41,15 +40,22 @@ const postTask = async (data) => {
     return response.data;
 };
 
-const putTask = async (data) => {
-    const response = await axios.put(`${API_URL}/tasks/`, data);
+const putTask = async (id, data) => {
+    const response = await axios.put(`${API_URL}/tasks/${id}/`, data);
+    console.log(response.data);
+
+    return response.data;
+};
+
+const patchTask = async (id, data) => {
+    const response = await axios.put(`${API_URL}/tasks/${id}/`, data);
     console.log(response.data);
 
     return response.data;
 };
 
 const deleteTask = async (id) => {
-    const response = await axios.delete(`${API_URL}/tasks/${id}`);
+    const response = await axios.delete(`${API_URL}/tasks/${id}/`);
     console.log(response.data);
 
     return response.data;
