@@ -14,7 +14,6 @@ const TaskCard = ({ task, handleUpdate, handleDelete }) => {
     const formattedDueDate = formatDate(task);
 
     const handleOpened = () => {
-        console.log("opened: " + opened);
         setOpened(!opened);
     };
 

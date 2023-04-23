@@ -6,14 +6,12 @@ const pass = "jerealva";
 
 const getAllTasks = async () => {
     const response = await axios.get(`${API_URL}/tasks/`);
-    console.log(response.data);
 
     return response.data;
 };
 
 const getTask = async (id) => {
     const response = await axios.get(`${API_URL}/tasks/${id}/`);
-    console.log(response.data);
 
     return response.data;
 };
@@ -35,28 +33,24 @@ const postTask = async (data) => {
             },
         }
     );
-    console.log(response.data);
 
     return response.data;
 };
 
 const putTask = async (id, data) => {
     const response = await axios.put(`${API_URL}/tasks/${id}/`, data);
-    console.log(response.data);
 
     return response.data;
 };
 
 const patchTask = async (id, data) => {
     const response = await axios.patch(`${API_URL}/tasks/${id}/`, data);
-    console.log(response.data);
 
     return response.data;
 };
 
 const deleteTask = async (id) => {
     const response = await axios.delete(`${API_URL}/tasks/${id}/`);
-    console.log(response.data);
 
     return response.data;
 };

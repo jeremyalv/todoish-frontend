@@ -1,7 +1,6 @@
 import React from "react";
 
 const DeleteTask = ({ task, handleDelete: deleteTask }) => {
-    console.log("AT DELETE TASK");
     return (
         <div
             // Delete Task

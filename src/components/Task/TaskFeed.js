@@ -36,8 +36,6 @@ const TaskFeed = () => {
         fetchTasks(setTasks);
     }, []);
 
-    console.log("AT TASK FEED");
-
     return (
         <div className="flex flex-col items-center overflow-y-auto px-4 pt-12 pb-20">
             {tasks.map((task, key) => (
