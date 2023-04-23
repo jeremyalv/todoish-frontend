@@ -1,4 +1,4 @@
-export const GetIdFromURL = (task) => {
+export const GetIdFromTask = (task) => {
     // Split task by /
     const arr = task.url.split("/");
 

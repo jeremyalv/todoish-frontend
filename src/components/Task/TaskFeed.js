@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TaskCard from "./TaskCard";
 import * as api from "../../api/api.js";
 
-import { GetIdFromURL } from "../Helper/GetIdFromURL";
+import { GetIdFromTask } from "../Helper/GetIdFromTask";
 
 const fetchTasks = async (setTasks) => {
     const data = await api.getAllTasks();
@@ -13,7 +13,7 @@ const fetchTasks = async (setTasks) => {
 
 const handleDelete = async (task) => {
     // Retrieve Id from hyperlinked URL field
-    const id = GetIdFromURL(task);
+    const id = GetIdFromTask(task);
 
     // Then store to TaskCard's state
     await api.deleteTask(id);
@@ -23,7 +23,7 @@ const handleDelete = async (task) => {
 
 const handleUpdate = async (task, newData) => {
     // Retrieve Id from hyperlinked URL field
-    const id = GetIdFromURL(task);
+    const id = GetIdFromTask(task);
 
     // Then send PUT request to server
     await api.putTask(id, newData);

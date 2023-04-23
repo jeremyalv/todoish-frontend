@@ -48,7 +48,7 @@ const putTask = async (id, data) => {
 };
 
 const patchTask = async (id, data) => {
-    const response = await axios.put(`${API_URL}/tasks/${id}/`, data);
+    const response = await axios.patch(`${API_URL}/tasks/${id}/`, data);
     console.log(response.data);
 
     return response.data;
@@ -61,4 +61,4 @@ const deleteTask = async (id) => {
     return response.data;
 };
 
-export { getAllTasks, getTask, postTask, putTask, deleteTask };
+export { getAllTasks, getTask, postTask, putTask, deleteTask, patchTask };

@@ -3,7 +3,9 @@ import Checkbox from "./Checkbox";
 import { formatDate } from "../Helper/FormatDate";
 import { GMTtoWIB } from "../Helper/GMTtoWIB";
 import DeleteTask from "./DeleteTask";
-import UpdateTaskModal from "../Navbar/UpdateTaskModal";
+import * as api from "../../api/api.js";
+import { GetIdFromTask } from "../Helper/GetIdFromTask";
+// import UpdateTaskModal from "../Navbar/UpdateTaskModal";
 
 const TaskCard = ({ task, handleUpdate, handleDelete }) => {
     const [opened, setOpened] = useState(false);
@@ -16,8 +18,18 @@ const TaskCard = ({ task, handleUpdate, handleDelete }) => {
         setOpened(!opened);
     };
 
-    // TODO Sync actions with backend database
-    const handleFinished = () => {
+    const handleFinished = async () => {
+        // Store the new finished data
+        const id = GetIdFromTask(task);
+        const data = { is_finished: !finished };
+
+        try {
+            await api.patchTask(id, data);
+        } catch (error) {
+            console.log(error);
+        }
+
+        // Update 'finished' state
         setFinished(!finished);
     };
 
@@ -73,6 +85,8 @@ const TaskCard = ({ task, handleUpdate, handleDelete }) => {
                             {task.category}
                         </div> */}
                     </div>
+
+                    {/* TODO For future improvement - Update whole Task data */}
                     {/* 
                     {opened ? (
                         <UpdateTaskModal
